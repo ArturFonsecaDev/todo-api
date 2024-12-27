@@ -4,23 +4,28 @@ from .models import ToDo, Column, Task
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 
 class ToDoViewSet(ModelViewSet):
     queryset = ToDo.objects.all()
     serializer_class = ToDoSerializer
+    permission_classes = [IsAuthenticated]
 
 class ColumnViewSet(ModelViewSet):
     queryset = Column.objects.all()
     serializer_class = ColumnSerializer
+    permission_classes = [IsAuthenticated]
 
 class TaskViewSet(ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
 
 
     @action(methods=['patch'], detail=True)
     def change_task_position(self, request, pk=None):
+        self.permission_classes = [IsAuthenticated]
         if pk is None:
             return Response({'error': 'An Id is missing!'}, status=status.HTTP_404_NOT_FOUND)
         
