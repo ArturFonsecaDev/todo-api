@@ -48,12 +48,44 @@ Este é o back-end de uma aplicação de gerenciamento de tarefas estilo Kanban,
       "confirm_password": "123456"
   }
 
+  ### Create Todo
+  POST http://127.0.0.1:8000/api/todos/
+  Authorization: Bearer <your_jwt_token>
+  Content-Type: application/json
+
+  {
+    "name": "My New ToDo",
+    "user": <user_id>
+  }
+
+  ### Create Column
+  POST http://127.0.0.1:8000/api/columns/
+  Authorization: Bearer <your_jwt_token>
+  Content-Type: application/json
+
+  {
+    "name": "To Do",
+    "todo": <todo_id>
+  }
+
+  ### Create Task
+  POST http://127.0.0.1:8000/api/tasks/
+  Authorization: Bearer <your_jwt_token>
+  Content-Type: application/json
+
+  {
+    "title": "New Task",
+    "description": "Task description",
+    "column": <column_id>
+  }
+
+
   ### Change Task Position
   PATCH {{apiurl}}/api/tasks/<task_id>/change_task_position/
   Authorization: Bearer <your_jwt_token>
   Content-Type: application/json
 
-{
-  "position": 2
-}
+  {
+    "position": 2
+  }
   ```
