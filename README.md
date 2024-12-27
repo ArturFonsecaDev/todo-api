@@ -14,3 +14,38 @@ Este é o back-end de uma aplicação de gerenciamento de tarefas estilo Kanban,
 - **Django**: Framework Python para construção do back-end.
 - **Django Rest Framework (DRF)**: Biblioteca para criar APIs RESTful de maneira rápida e eficiente.
 - **SQLite**: Banco de dados simples (por padrão no Django) para armazenar os dados, mas pode ser facilmente configurado para outros bancos, como PostgreSQL.
+
+***Exemplo de request utilizando [rest client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client):***
+
+  ```bash
+  ### Variables 
+  @apiurl = http://127.0.0.1:8000
+  
+  
+  # List Users
+  GET {{apiurl}}/api/accounts/ HTTP/1.1
+  Content-Type: application/json
+  Authorization: Bearer <TOKEN>
+  
+  
+  # login User
+  POST {{apiurl}}/api/accounts/token/ HTTP/1.1
+  Content-Type: application/json
+  
+  {
+      "email": "sgsartur@hotmail.com",
+      "password": "123456"
+  }
+  
+  
+  ### Create User
+  POST {{apiurl}}/api/accounts/register/ HTTP/1.1
+  Content-Type: application/json
+  
+  {
+      "email": "sgsartur@hotmail.com",
+      "password": "123456",
+      "confirm_password": "123456"
+  }
+
+  ```
