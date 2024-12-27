@@ -48,4 +48,12 @@ Este é o back-end de uma aplicação de gerenciamento de tarefas estilo Kanban,
       "confirm_password": "123456"
   }
 
+  ### Change Task Position
+  PATCH {{apiurl}}/api/tasks/<task_id>/change_task_position/
+  Authorization: Bearer <your_jwt_token>
+  Content-Type: application/json
+
+{
+  "position": 2
+}
   ```
