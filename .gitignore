@@ -1,0 +1,74 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.pyd
+*.db
+*.sqlite3
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+__pycache__/
+db.sqlite3
+
+# VSCode
+.vscode/
+
+# JetBrains (PyCharm, IntelliJ, etc)
+.idea/
+
+# Virtual Environment
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Django migrations
+*/migrations/*
+
+# Node.js
+node_modules/
+
+# Static files (if they are generated locally and not needed to be versioned)
+static/
+
+# Media files (uploaded files by users)
+media/
+
+# .env file containing secret keys and environment variables
+.env
+.env.*
+*.env
+
+# .DS_Store file (macOS)
+.DS_Store
+
+# Coverage reports
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+
+# Pytest cache
+.cache
+
+# mypy
+.mypy_cache/
+
+# Python egg files
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Sphinx documentation
+docs/_build/
+
+# Local IDE settings
+*.sublime-workspace
+*.sublime-project
