@@ -57,7 +57,7 @@ class UserManager(BaseUserManager):
         except:
             raise self.model.DoesNotExist(f'User with id {id} not found!')
         
-        self.model.is_active = False
+        user.is_active = False
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
