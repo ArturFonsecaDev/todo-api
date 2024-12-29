@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from .models import User
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 class UserSerializer(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(required=True)
+    confirm_password = serializers.CharField(write_only=True)
     class Meta:
         model = User
         fields = "__all__"
@@ -15,9 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
-        email = validated_data.get('email', None)
-        user = User.objects.create_user(email=email, password=password, **validated_data)
-        return user
+        email = validated_data.pop('email', None)
+        if not User.objects.filter(email=email).exists():
+            user = User.objects.create_user(email=email, password=password, **validated_data)
+            return user
+        raise serializers.ValidationError('An user with this email already exists')
     
     def update(self, instance, validated_data):
         password = validated_data.pop('password', None)
@@ -26,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         password = data.get('password')
-        confirm_password = data.get('confirm_password')
+        confirm_password = data.pop('confirm_password')
         
         if not password or not confirm_password:
             raise serializers.ValidationError('Password and Confirm Password fields are required!')
@@ -34,5 +38,20 @@ class UserSerializer(serializers.ModelSerializer):
         if password != confirm_password:
             raise serializers.ValidationError('Passwords must match.')
         
-        data.pop('confirm_password')
+        return data
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation.pop('confirm_password', None)
+        return representation
+    
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        user = self.user
+
+        data['user'] = {
+            'id': user.id,
+            'email': user.email,
+        }
         return data
