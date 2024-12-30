@@ -12,6 +12,9 @@ class ToDoViewSet(ModelViewSet):
     serializer_class = ToDoSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        return ToDo.objects.filter(user=self.request.user)
+
 class ColumnViewSet(ModelViewSet):
     queryset = Column.objects.all()
     serializer_class = ColumnSerializer
